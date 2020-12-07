@@ -10,7 +10,8 @@ class AdminController extends Controller
     //
     public function index()
     {
-        $admin = Admin::all();
-        return ['login' => $admin];
+        // $admin = Admin::all();
+        // return ['login' => $admin];
+        return view('main');
     }
 }

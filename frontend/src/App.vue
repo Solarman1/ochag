@@ -158,14 +158,6 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Кафе-бистро Очаг</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-text-field
-          flat
-          solo-inverted
-          hide-details
-          prepend-inner-icon="mdi-magnify"
-          label="Search"
-          class="hidden-sm-and-down"
-        ></v-text-field>
         <v-spacer></v-spacer>
         <v-btn icon>
           <v-icon>mdi-cart</v-icon>
@@ -192,7 +184,6 @@
     </v-main>
     <v-footer
       color="brown"
-      app
       dark
       padless
     >
@@ -204,7 +195,7 @@
       color = "brown"
     >
       <v-card-title >
-        <strong class="subheading">Тел: 47-22-11</strong>
+        <strong class="subheading"><a href="tel:+496170961709" >Тел: 47-22-11</a></strong>
         
 
         <v-spacer></v-spacer>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Http\Requests\CategorRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,9 +13,12 @@ class CategoryController extends Controller
         return Category::all();
     }
 
-    public function store(Request $request)
+    public function store(CategorRequest $requestForm)
     {
-        Category::create($request->all());
+        $resultRequest = $requestForm->input('categoryName');
+        Category::create($resultRequest);
+        dd('this');
+        return redirect()->route('admin');
     }
 
     public function update(Request $request, $id)
