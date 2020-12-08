@@ -50,19 +50,30 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>  Заказы</span>
+
+          </h6>
+
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="/admin">
               <span data-feather="home"></span>
               Категории
                <span class="sr-only">(current)</span>
             </a>
           </li>
+        
+          @foreach($categorys as $row)
+
           <li class="nav-item">
-            <a class="nav-link" href="#">
+          <a class="nav-link" href="/admin/category/{{$row->id}}">
               <span data-feather="file"></span>
-              Orders
+              {{$row->name}}
             </a>
           </li>
+
+          @endforeach  
+          
         </ul>
       </div>
     </nav>
@@ -70,58 +81,11 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <!-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.location='/addCategory'">Добавить категорию</button>-->
-            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">
-    Добавить категорию
-</button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="categoryModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
- <!-- Modal BODY  START-->
-        <div class="modal-body">
-            <div class="container">
-                <div class="card"> 
-                    <div class="card-header">
-                        <form action="/category" method="post">
-                            @csrf
-                            <h1 class="h2">Введите название категории</h1>
-                            <p></p>
-                            <input name="categoryName" class="form-control" placeholder="Enter URL" >
-                            <button type="submit" class="btn btn-success">Сохранить</button>
-                        </form>
-                    </div>                                                    
-                 </div>
-             </div>       
-        </div>
- <!-- Modal BODY  END-->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal END-->
-
-
-          </div>
-        </div>
+        
       </div>
 
       <div class="table-responsive">
-        11
         @yield('content')
-
       </div>
 
     </main>

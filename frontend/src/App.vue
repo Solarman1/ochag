@@ -1,7 +1,6 @@
 <template>
 
   <v-app id="inspire" >
-
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -152,7 +151,7 @@
 
     <v-app-bar
       app
-      color="brown"
+      color="black"
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -183,7 +182,7 @@
       </v-container>
     </v-main>
     <v-footer
-      color="brown"
+      color="black"
       dark
       padless
     >
@@ -192,7 +191,7 @@
       class="flex"
       flat
       tile
-      color = "brown"
+      color = "black"
     >
       <v-card-title >
         <strong class="subheading"><a href="tel:+496170961709" >Тел: 47-22-11</a></strong>
@@ -239,7 +238,7 @@ export default {
 </script>
 <style scoped>
 #inspire{
-   /* background-image: url("./assets/tree.jpg"); */
+   background-image: url("./assets/tree.jpg");
    background-size: cover;
 }
 a:hover{

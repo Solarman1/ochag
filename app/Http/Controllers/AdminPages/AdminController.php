@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AdminPages;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
     //
     public function index()
     {
-        // $admin = Admin::all();
+        $categorys = \App\Models\Category::all();
         // return ['login' => $admin];
-        return view('main');
+        return view('main', compact('categorys'));
     }
 }

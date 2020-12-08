@@ -16,8 +16,8 @@ class CategoryController extends Controller
     public function store(CategorRequest $requestForm)
     {
         $resultRequest = $requestForm->input('categoryName');
-        Category::create($resultRequest);
-        dd('this');
+        Category::create(['name' => "$resultRequest"]);
+        //dd('this');
         return redirect()->route('admin');
     }
 

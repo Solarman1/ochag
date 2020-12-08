@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,9 +14,22 @@ class ProductController extends Controller
         return Product::all();
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $requestForm)
     {
-        Product::create($request->all());
+        $categoryId  = $requestForm->input('categoryId');
+        $name        = $requestForm->input('name');
+        $price       = $requestForm->input('price');
+        $description = $requestForm->input('description');
+        //$image       = $requestForm->file('img')->store('uploads', 'public');
+
+
+        Product::create([
+            'categoriId'  => "$categoryId",
+            'name'        => "$name",
+            'price'       => "$price",
+            'description' => "$description",
+            'image'       => "",
+        ]);
     }
 
     public function update(Request $request, $id)

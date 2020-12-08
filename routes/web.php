@@ -10,5 +10,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin', 'AdminPages\AdminController@index')->name('admin');
+
+Route::get('/admin/category/{id}', 'AdminPages\AdminCategorysController@getCategorys');
+Route::get('/admin/products/{id}', 'AdminPages\AdminProductsController@getProducts');
+
+
 Route::post('/category', 'CategoryController@store');
+Route::post('/product', 'ProductController@store');
