@@ -12,10 +12,15 @@ class AdminCategorysController extends Controller
     public function getCategorys($categoryId)
     {
         $products = \App\Models\Product::all()
-                                        ->where('id', $categoryId);
+                                        ->where('categoriId', $categoryId);
 
         $categorys = \App\Models\Category::all();
 
-        return view('categoryProductsAdmin', compact('categorys', 'products'));
+        $categoryName = \App\Models\Category::select('name')->where('id', $categoryId)->get();
+        //dd($categoryName);
+        session()->put('categoriId', "$categoryId"); 
+       //dd(session()->all());
+        //dd($products);
+        return view('categoryProductsAdmin', compact('categorys', 'categoryName', 'products'));
     }
 }

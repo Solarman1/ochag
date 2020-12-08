@@ -20,24 +20,31 @@ class ProductController extends Controller
         $name        = $requestForm->input('name');
         $price       = $requestForm->input('price');
         $description = $requestForm->input('description');
-        //$image       = $requestForm->file('img')->store('uploads', 'public');
+        $image       = $requestForm->file('img')->store('uploads', 'public');
 
 
         Product::create([
-            'categoriId'  => "$categoryId",
+            'categoriId'  => $categoryId,
             'name'        => "$name",
-            'price'       => "$price",
+            'price'       => $price,
             'description' => "$description",
-            'image'       => "",
+            'image'       => "$image",
         ]);
+
+        return redirect()->to("/admin/category/{$categoryId}");
     }
 
-    public function update(Request $request, $id)
+    public function update(ProductRequest $requestForm)
     {
-        $article = Product::findOrFail($id);
-        $article->update($request->all());
+        $productId  = $requestForm->input('productEditId');
+        $categoryId = session()->get('categoriId');
 
-        return $article;
+        //dd(session()->all());
+
+        $article = Product::findOrFail($productId);
+        $article->update($requestForm->all());
+
+        return redirect()->to("/admin/category/{$categoryId}");
     }
 
     public function delete(Request $request, $id)
