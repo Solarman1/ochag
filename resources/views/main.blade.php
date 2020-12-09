@@ -64,11 +64,11 @@
         @foreach($categorys as $row) 
             <tr>
             <td>{{$row->id}}</td>
-            <input name = "hiddenCategoryId" type="hidden" value="{{$row->name}}">
+            <input name = "hiddenCategoryId" type="hidden" value="{{$row->id}}">
             <td><a class="nav-link" href="/admin/category/{{$row->id}}">{{$row->name}}</a></td>
             <input id = "pName{{$row->id}}" name = "pName" type="hidden" value="{{$row->name}}">
             <td>
-                <button id = "{{$row->id}}" name = "categoryodelButton" type="button"  class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#categoryEditModal">Редактировать</button> 
+                <button id = "{{$row->id}}" name = "modelButton" type="button"  class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#categoryEditModal">Редактировать</button> 
                 <form action="/deleteCategory" method="post">
                   @csrf
                   <input id = "pCategory{{$row->id}}" name = "categoryId" type="hidden" value="{{$row->id}}">
@@ -102,7 +102,7 @@
                         <h1 class="h2"></h1>
                         <p></p>
                         <input id="categoryNameId" name="categoryName" class="form-control">
-                        <input id="editCategoryId" name="categoryName" class="form-control" type="hidden">
+                        <input id="editCategoryId" name="categoryId" class="form-control" type="hidden">
                         <button type="submit" class="btn btn-success">Сохранить</button>
                     </form>
                 </div>                                                    
@@ -119,6 +119,7 @@
   <!-- Modal END-->
 
 <script>
+  
       const nameEditId        = document.getElementById('categoryNameId');
       const editCategoryId    = document.getElementById('editCategoryId');
       const modelButton       = document.getElementsByName('modelButton');
@@ -130,21 +131,21 @@
       var cartData;
       var arrCartData = [];
 
-      console.log(modelButton.id);
-      console.log(pName);
-
+      console.log(pName.length);
       for(let i = 0; i < pName.length; i++)
       {
         cartData = {
-          categoryId  : categoryId [i].value,
+          categoryId  : categoryId[i].value,
           pName  : pName[i].value,
         };
         arrCartData[i] = cartData;
       }
+
+      console.log(arrCartData);
      
       modelButton.forEach((element) => {
         var modelButtonId = document.getElementById(element.id);
-      
+        console.log(modelButton.id);
         modelButtonId.addEventListener('click', (event) => {
           for(let i = 0; i < arrCartData.length; i++)
           {

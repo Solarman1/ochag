@@ -24,9 +24,15 @@ class CategoryController extends Controller
     public function update(CategorRequest $requestForm)
     {
         $categoryId = $requestForm->input('categoryId');
-
+        //dd($requestForm->all());
         $article = Category::findOrFail($categoryId);
-        $article->update($requestForm->all());
+
+        $categoryName = $requestForm->input('categoryName');
+
+        $article->update([
+            'id'   => $categoryId,
+            'name' => $categoryName
+        ]);
 
         return redirect()->route('admin');
     }

@@ -36,9 +36,9 @@
                             <input name = "price" type="text" class="form-control">
                             </p>
 
-                            {{-- <p>Объем: 
-                            <input type="text" class="form-control">
-                            </p> --}}
+                            <p>Вес: 
+                            <input name = "weight" type="text" class="form-control">
+                            </p>
 
 
                             <p>Категория: 
@@ -86,8 +86,6 @@
     <div class="container">
       <div class="row">
     @foreach($products as $row)
-    
-    
         <div class="col-md-4">
           <div class="card mb-4 box-shadow">
           <img class="card-img-top" alt="" style="height: 225px; width: 100%; margin: auto; display: block;" src="{{asset('/storage/productImages/'.$row->image)}}" data-holder-rendered="true">
@@ -96,6 +94,8 @@
               <input id = "pName{{$row->id}}" name = 'pName' type="hidden" value="{{$row->name}}">
               Цена:<p class="card-text"> {{$row->price}}</p>
               <input id = "pPrice{{$row->id}}" name = 'pPrice' type="hidden" value="{{$row->price}}">
+              Вес:<p class="card-text"> {{$row->weight}}</p>
+              <input id = "pWeight{{$row->id}}" name = 'pWeight' type="hidden" value="{{$row->weight}}">
               Описание:<p class="card-text"> {{$row->description}}</p>
               <input id = "pDescription{{$row->id}}" name = 'pDescription' type="hidden" value="{{$row->description}}">
               <input name = "hiddenProductId" type="hidden" value="{{$row->id}}">
@@ -148,9 +148,10 @@
                         <input id = "price" name = "price" type="text" class="form-control" >
                         </p>
                         <input id = "editProductId" name = 'productEditId' type="hidden">
-                        {{-- <p>Объем: 
-                        <input type="text" class="form-control">
-                        </p> --}}
+
+                        <p>Вес: 
+                        <input id = "weight" name = 'weight' type="text" class="form-control">
+                        </p>
 
                         <p>Категория: 
                         <select name="categoryId" multiple>
@@ -185,29 +186,36 @@
     </div>
     </div>
     <!-- Modal EDIT END-->
+    
     <script>
       const nameEditId        = document.getElementById('name');
       const priceEditId       = document.getElementById('price');
+      const weightEditId      = document.getElementById('weight');
       const editProductId     = document.getElementById('editProductId');
-     // const weightEditId      = document.getElementById();
       const descriptionEditId = document.getElementById('descriptionEdit');
-      const modelButton       = document.getElementsByName('modelButton');
 
+      const modelButton  = document.getElementsByName('modelButton');
       const productId    = document.getElementsByName('hiddenProductId');
       const pName        = document.getElementsByName('pName');
       const pPrice       = document.getElementsByName('pPrice');
+      const pWeight      = document.getElementsByName('pWeight');
       const pDescription = document.getElementsByName('pDescription');
       
       var cartData;
       var arrCartData = [];
 
+      console.log(weightEditId.value);
+      console.log(pWeight.value);
+
+
       for(let i = 0; i < pName.length; i++)
       {
         
         cartData = {
-          productId : productId[i].value,
-          pName  : pName[i].value,
-          pPrice : pPrice[i].value,
+          productId    : productId[i].value,
+          pName        : pName[i].value,
+          pPrice       : pPrice[i].value,
+          pWeight      : pWeight[i].value,
           pDescription : pDescription[i].value
         };
         //console.log(productId[i].value);
@@ -216,7 +224,7 @@
      
       modelButton.forEach((element) => {
         var modelButtonId = document.getElementById(element.id);
-        console.log(modelButtonId.id);
+        //console.log(modelButtonId.id);
         modelButtonId.addEventListener('click', (event) => {
           for(let i = 0; i < arrCartData.length; i++)
           {
@@ -224,6 +232,7 @@
             {
               nameEditId.value        = arrCartData[i].pName;
               priceEditId.value       = arrCartData[i].pPrice;
+              weightEditId.value      = arrCartData[i].pWeight;
               editProductId.value     = arrCartData[i].productId;
               descriptionEditId.value = arrCartData[i].pDescription;
             }

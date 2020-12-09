@@ -19,6 +19,7 @@ class ProductController extends Controller
         $categoryId  = $requestForm->input('categoryId');
         $name        = $requestForm->input('name');
         $price       = $requestForm->input('price');
+        $weight      = $requestForm->input('weight');
         $description = $requestForm->input('description');
         $image       = $requestForm->file('img')->store('uploads', 'public');
 
@@ -27,6 +28,7 @@ class ProductController extends Controller
             'categoriId'  => $categoryId,
             'name'        => "$name",
             'price'       => $price,
+            'weight'      => "$weight",
             'description' => "$description",
             'image'       => "$image",
         ]);
