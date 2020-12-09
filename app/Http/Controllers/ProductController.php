@@ -47,11 +47,15 @@ class ProductController extends Controller
         return redirect()->to("/admin/category/{$categoryId}");
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $requestForm)
     {
-        $article = Product::findOrFail($id);
-        $article->delete();
+        $categoryId = session()->get('categoriId');
 
-        return 204;
+        $productId = $requestForm->input('productId');
+        //dd($productId);
+        $article = Product::findOrFail($productId);
+        $article->delete();
+        
+        return redirect()->to("/admin/category/{$categoryId}");
     }
 }

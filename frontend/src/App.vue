@@ -4,6 +4,7 @@
     <v-navigation-drawer
       v-model="drawer"
       app
+      color = "#15151d"
     >
       <v-list dense>
 
@@ -14,7 +15,7 @@
               <v-expansion-panel-content>
 
                 <v-list-item  to='/about' link>
-                  <v-list-item-action  color="brown">
+                  <v-list-item-action >
                    
                   </v-list-item-action>
                     <v-list-item-content>
@@ -151,7 +152,7 @@
 
     <v-app-bar
       app
-      color="black"
+      color="#15151d"
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -182,7 +183,7 @@
       </v-container>
     </v-main>
     <v-footer
-      color="black"
+      color="#474428"
       dark
       padless
     >
@@ -191,7 +192,7 @@
       class="flex"
       flat
       tile
-      color = "black"
+      color = "#15151d"
     >
       <v-card-title >
         <strong class="subheading"><a href="tel:+496170961709" >Тел: 47-22-11</a></strong>

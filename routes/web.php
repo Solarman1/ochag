@@ -17,6 +17,8 @@ Route::get('/admin/products/{id}', 'AdminPages\AdminProductsController@getProduc
 
 
 Route::post('/category', 'CategoryController@store');
+Route::post('/deleteCategory', 'CategoryController@delete');
 
 Route::post('/product', 'ProductController@store');
+Route::post('/productDelete', 'ProductController@delete');
 Route::put('/product', 'ProductController@update');

@@ -29,12 +29,14 @@ class CategoryController extends Controller
         return $article;
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request)
     {
-        $article = Category::findOrFail($id);
+        $categoryId = $request->input('categoryId');
+
+        $article = Category::findOrFail($categoryId);
         $article->delete();
 
-        return 204;
+        return redirect()->route('admin');
     }
     
 }
