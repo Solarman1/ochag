@@ -64,12 +64,14 @@
         @foreach($categorys as $row) 
             <tr>
             <td>{{$row->id}}</td>
+            <input name = "hiddenCategoryId" type="hidden" value="{{$row->name}}">
             <td><a class="nav-link" href="/admin/category/{{$row->id}}">{{$row->name}}</a></td>
+            <input id = "pName{{$row->id}}" name = "pName" type="hidden" value="{{$row->name}}">
             <td>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#categoryEditModal">Редактировать</button> 
+                <button id = "{{$row->id}}" name = "categoryodelButton" type="button"  class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#categoryEditModal">Редактировать</button> 
                 <form action="/deleteCategory" method="post">
                   @csrf
-                  <input name = "categoryId" type="hidden" value="{{$row->id}}">
+                  <input id = "pCategory{{$row->id}}" name = "categoryId" type="hidden" value="{{$row->id}}">
                   <button type="submit" class="btn btn-sm btn-outline-secondary">Удалить</button>
                 </form>
               </td>
@@ -84,7 +86,7 @@
   <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="categoryEditModalLabel">Modal title</h5>
+      <h5 class="modal-title" id="categoryEditModalLabel">Введите новое название категории</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -95,10 +97,12 @@
             <div class="card"> 
                 <div class="card-header">
                     <form action="/category" method="post">
-                        @csrf
-                        <h1 class="h2">Введите новое название категории</h1>
+                      @csrf  
+                      @method('PUT')
+                        <h1 class="h2"></h1>
                         <p></p>
-                        <input name="categoryName" class="form-control" >
+                        <input id="categoryNameId" name="categoryName" class="form-control">
+                        <input id="editCategoryId" name="categoryName" class="form-control" type="hidden">
                         <button type="submit" class="btn btn-success">Сохранить</button>
                     </form>
                 </div>                                                    
@@ -114,5 +118,43 @@
   </div>
   <!-- Modal END-->
 
+<script>
+      const nameEditId        = document.getElementById('categoryNameId');
+      const editCategoryId    = document.getElementById('editCategoryId');
+      const modelButton       = document.getElementsByName('modelButton');
 
+      const categoryId    = document.getElementsByName('hiddenCategoryId');
+      const pName         = document.getElementsByName('pName');
+
+      
+      var cartData;
+      var arrCartData = [];
+
+      console.log(modelButton.id);
+      console.log(pName);
+
+      for(let i = 0; i < pName.length; i++)
+      {
+        cartData = {
+          categoryId  : categoryId [i].value,
+          pName  : pName[i].value,
+        };
+        arrCartData[i] = cartData;
+      }
+     
+      modelButton.forEach((element) => {
+        var modelButtonId = document.getElementById(element.id);
+      
+        modelButtonId.addEventListener('click', (event) => {
+          for(let i = 0; i < arrCartData.length; i++)
+          {
+            if(modelButtonId.id == arrCartData[i].categoryId )
+            {
+              nameEditId.value         = arrCartData[i].pName;
+              editCategoryId.value     = arrCartData[i].categoryId ;
+            }
+          }
+        });
+      });
+    </script>
 @endsection

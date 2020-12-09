@@ -21,12 +21,14 @@ class CategoryController extends Controller
         return redirect()->route('admin');
     }
 
-    public function update(Request $request, $id)
+    public function update(CategorRequest $requestForm)
     {
-        $article = Category::findOrFail($id);
-        $article->update($request->all());
+        $categoryId = $requestForm->input('categoryId');
 
-        return $article;
+        $article = Category::findOrFail($categoryId);
+        $article->update($requestForm->all());
+
+        return redirect()->route('admin');
     }
 
     public function delete(Request $request)

@@ -92,13 +92,13 @@
           <div class="card mb-4 box-shadow">
           <img class="card-img-top" alt="" style="height: 225px; width: 100%; margin: auto; display: block;" src="{{asset('/storage/productImages/'.$row->image)}}" data-holder-rendered="true">
             <div class="card-body">
-              Название:<p id = "pName" class="card-text"> {{$row->name}}</p>
-              <input name = 'pName[]' type="hidden" value="{{$row->name}}">
-              Цена:<p id = "pPrice" class="card-text"> {{$row->price}}</p>
-              <input name = 'pPrice[]' type="hidden" value="{{$row->price}}">
-              Описание:<p id = "pDescription" class="card-text"> {{$row->description}}</p>
-              <input name = 'pDescription[]' type="hidden" value="{{$row->description}}">
-              <input id = "productId" type="hidden" value="{{$row->id}}">
+              Название:<p class="card-text"> {{$row->name}}</p>
+              <input id = "pName{{$row->id}}" name = 'pName' type="hidden" value="{{$row->name}}">
+              Цена:<p class="card-text"> {{$row->price}}</p>
+              <input id = "pPrice{{$row->id}}" name = 'pPrice' type="hidden" value="{{$row->price}}">
+              Описание:<p class="card-text"> {{$row->description}}</p>
+              <input id = "pDescription{{$row->id}}" name = 'pDescription' type="hidden" value="{{$row->description}}">
+              <input name = "hiddenProductId" type="hidden" value="{{$row->id}}">
               <style>
                 .card-text {
                   font-size: 15px;
@@ -106,7 +106,7 @@
               </style>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#productEditModal">Редактировать</button>
+                  <button id = "{{$row->id}}" name = "modelButton" type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#productEditModal">Редактировать</button>
                     <form action="/productDelete" method="post">
                       @csrf
                       <input name = "productId" type="hidden" value="{{$row->id}}">
@@ -117,6 +117,11 @@
             </div>
           </div>
         </div>
+    @endforeach  
+
+      </div>
+    </div>
+  </div>
    <!-- Modal EDIT -->
    <div class="modal fade" id="productEditModal" tabindex="-1" role="dialog" aria-labelledby="productEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -136,14 +141,13 @@
                       @csrf  
                       @method('PUT')
                         <p>Название товара: 
-                        <input id = "name" name="name" class="form-control"  value="{{$row->name}}">
+                        <input id = "name" name="name" class="form-control" >
                         </p>
                           
                         <p>Цена: 
-                        <input id = "price" name = "price" type="text" class="form-control" value="{{$row->price}}">
+                        <input id = "price" name = "price" type="text" class="form-control" >
                         </p>
                         <input id = "editProductId" name = 'productEditId' type="hidden">
-                        <input id = "categoryIdEditModel" name = 'categoryIdEditModel' type="hidden">
                         {{-- <p>Объем: 
                         <input type="text" class="form-control">
                         </p> --}}
@@ -161,29 +165,13 @@
                         </p>
 
                         <p>Описание товара: 
-                        <textarea id = "descriptionEdit"  name="description" rows="8" cols="50" value = "{{$row->description}}"></textarea>
+                        <textarea id = "descriptionEdit"  name="description" rows="8" cols="50"></textarea>
                         </p>
 
                         <div>
                             <button type="submit" class="btn btn-success">Сохранить</button>
                         </div>
-                        {{-- <script>
-                          const nameEditId        = document.getElementById('name');
-                          const priceEditId       = document.getElementById('price');
-                          const editProductId         = document.getElementById('editProductId');
-                         // const weightEditId      = document.getElementById();
-                          const descriptionEditId = document.getElementById('descriptionEdit');
-
-                          const productId    = document.getElementById('productId');
-                          const pName        = document.getElementById('pName');
-                          const pPrice       = document.getElementById('pPrice');
-                          const pDescription = document.getElementById('pDescription');
-
-                          nameEditId.value        = pName.innerHTML;
-                          priceEditId.value       = pPrice.innerHTML;
-                          descriptionEditId.value = pDescription.innerHTML;
-                          editProductId.value     = productId.value;
-                        </script> --}}
+                        
                     </form>
                 </div>                                                    
             </div>
@@ -197,12 +185,51 @@
     </div>
     </div>
     <!-- Modal EDIT END-->
-    @endforeach  
+    <script>
+      const nameEditId        = document.getElementById('name');
+      const priceEditId       = document.getElementById('price');
+      const editProductId     = document.getElementById('editProductId');
+     // const weightEditId      = document.getElementById();
+      const descriptionEditId = document.getElementById('descriptionEdit');
+      const modelButton       = document.getElementsByName('modelButton');
 
-      </div>
-    </div>
-  </div>
+      const productId    = document.getElementsByName('hiddenProductId');
+      const pName        = document.getElementsByName('pName');
+      const pPrice       = document.getElementsByName('pPrice');
+      const pDescription = document.getElementsByName('pDescription');
+      
+      var cartData;
+      var arrCartData = [];
 
-
+      for(let i = 0; i < pName.length; i++)
+      {
+        
+        cartData = {
+          productId : productId[i].value,
+          pName  : pName[i].value,
+          pPrice : pPrice[i].value,
+          pDescription : pDescription[i].value
+        };
+        //console.log(productId[i].value);
+        arrCartData[i] = cartData;
+      }
+     
+      modelButton.forEach((element) => {
+        var modelButtonId = document.getElementById(element.id);
+        console.log(modelButtonId.id);
+        modelButtonId.addEventListener('click', (event) => {
+          for(let i = 0; i < arrCartData.length; i++)
+          {
+            if(modelButtonId.id == arrCartData[i].productId)
+            {
+              nameEditId.value        = arrCartData[i].pName;
+              priceEditId.value       = arrCartData[i].pPrice;
+              editProductId.value     = arrCartData[i].productId;
+              descriptionEditId.value = arrCartData[i].pDescription;
+            }
+          }
+        });
+      });
+    </script>
         
 @endsection

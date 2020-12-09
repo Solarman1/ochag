@@ -39,8 +39,6 @@ class ProductController extends Controller
         $productId  = $requestForm->input('productEditId');
         $categoryId = session()->get('categoriId');
 
-        //dd(session()->all());
-
         $article = Product::findOrFail($productId);
         $article->update($requestForm->all());
 
