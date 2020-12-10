@@ -10,16 +10,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/admin', 'AdminPages\AdminController@index')->name('admin');
 
-Route::get('/admin/category/{id}', 'AdminPages\AdminCategorysController@getCategorys');
-Route::get('/admin/products/{id}', 'AdminPages\AdminProductsController@getProducts');
+Auth::routes([
+    'reset'    => false,
+    'confirm'  => false,
 
+]);
 
-Route::post('/category', 'CategoryController@store');
-Route::post('/deleteCategory', 'CategoryController@delete');
-Route::put('/category', 'CategoryController@update');
+Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::post('/product', 'ProductController@store');
-Route::post('/productDelete', 'ProductController@delete');
-Route::put('/product', 'ProductController@update');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/admin', 'AdminPages\AdminController@index')->name('admin');
+    Route::get('/admin/category/{id}', 'AdminPages\AdminCategorysController@getCategorys');
+    Route::get('/admin/products/{id}', 'AdminPages\AdminProductsController@getProducts');
+
+    Route::post('/category', 'CategoryController@store');
+    Route::post('/deleteCategory', 'CategoryController@delete');
+    Route::put('/category', 'CategoryController@update');
+
+    Route::post('/product', 'ProductController@store');
+    Route::post('/productDelete', 'ProductController@delete');
+    Route::put('/product', 'ProductController@update');
+});
+

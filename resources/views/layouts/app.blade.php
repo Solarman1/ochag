@@ -57,7 +57,8 @@
                <span class="sr-only">(current)</span>
             </a>
           </li>
-        
+          
+          @if(isset($categorys))
           @foreach($categorys as $row)
 
           <li class="nav-item">
@@ -68,7 +69,7 @@
           </li>
 
           @endforeach  
-          
+          @endif
         </ul>
       </div>
     </nav>
