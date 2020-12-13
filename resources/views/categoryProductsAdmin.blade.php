@@ -209,8 +209,7 @@
 
 
       for(let i = 0; i < pName.length; i++)
-      {
-        
+      {      
         cartData = {
           productId    : productId[i].value,
           pName        : pName[i].value,
