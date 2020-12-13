@@ -162,7 +162,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> ca060721e73340ee900f9e9e76e1986b28feb00e
         /*
          * Package Service Providers...
          */

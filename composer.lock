@@ -866,10 +866,13 @@
                 "thumbnail",
                 "watermark"
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/Intervention/image/issues",
                 "source": "https://github.com/Intervention/image/tree/master"
             },
+=======
+>>>>>>> ca060721e73340ee900f9e9e76e1986b28feb00e
             "time": "2019-11-02T09:15:47+00:00"
         },
         {

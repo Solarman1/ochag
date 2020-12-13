@@ -89,6 +89,7 @@
         <div class="col-md-4">
           <div class="card mb-4 box-shadow">
           <img class="card-img-top" alt="" style="height: 225px; width: 100%; margin: auto; display: block;" src="{{asset('/storage/productImages/'.$row->image)}}" data-holder-rendered="true">
+          <input id = "pImage{{$row->id}}" type="hidden" name = "imageHidden" value="{{$row->image}}">
             <div class="card-body">
               Название:<p class="card-text"> {{$row->name}}</p>
               <input id = "pName{{$row->id}}" name = 'pName' type="hidden" value="{{$row->name}}">
@@ -163,6 +164,7 @@
 
                         <p>Картинка товара: 
                         <input type="file" name="img">
+                        <input id = "imgEditHidden" type="hidden" name="imgEditHidden">
                         </p>
 
                         <p>Описание товара: 
@@ -193,6 +195,7 @@
       const weightEditId      = document.getElementById('weight');
       const editProductId     = document.getElementById('editProductId');
       const descriptionEditId = document.getElementById('descriptionEdit');
+      const imgEdit           = document.getElementById('imgEditHidden');
 
       const modelButton  = document.getElementsByName('modelButton');
       const productId    = document.getElementsByName('hiddenProductId');
@@ -200,6 +203,7 @@
       const pPrice       = document.getElementsByName('pPrice');
       const pWeight      = document.getElementsByName('pWeight');
       const pDescription = document.getElementsByName('pDescription');
+      const pImage       = document.getElementsByName('imageHidden');
       
       var cartData;
       var arrCartData = [];
@@ -209,12 +213,17 @@
 
 
       for(let i = 0; i < pName.length; i++)
+<<<<<<< HEAD
       {      
+=======
+      {     
+>>>>>>> ca060721e73340ee900f9e9e76e1986b28feb00e
         cartData = {
           productId    : productId[i].value,
           pName        : pName[i].value,
           pPrice       : pPrice[i].value,
           pWeight      : pWeight[i].value,
+          pImage       : pImage[i].value,
           pDescription : pDescription[i].value
         };
         //console.log(productId[i].value);
@@ -233,6 +242,7 @@
               priceEditId.value       = arrCartData[i].pPrice;
               weightEditId.value      = arrCartData[i].pWeight;
               editProductId.value     = arrCartData[i].productId;
+              imgEdit.value           = arrCartData[i].pImage;
               descriptionEditId.value = arrCartData[i].pDescription;
             }
           }
