@@ -7,7 +7,7 @@
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Кафе-бистро Очаг</v-toolbar-title>
+      <v-toolbar-title>Кафе-бистроgergregfas Очаг</v-toolbar-title>
       <v-icon></v-icon>
     </v-app-bar>
 

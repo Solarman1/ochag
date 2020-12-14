@@ -4,12 +4,13 @@
     <v-navigation-drawer
       v-model="drawer"
       app
-      color = "#15151d"
+      color="#15151d"
+      dark
     >
       <v-list dense>
 
 
-        <v-expansion-panels accordion>
+        <!-- <v-expansion-panels accordion>
           <v-expansion-panel>
             <v-expansion-panel-header>О нас <v-icon>mdi-home</v-icon></v-expansion-panel-header>
               <v-expansion-panel-content>
@@ -57,9 +58,27 @@
 
               </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
+        </v-expansion-panels> -->
 
-        <v-expansion-panels accordion>
+        <v-list-group dark>
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title>Меню</v-list-item-title>
+          </v-list-item-content>
+        </template>
+
+        <v-list-item
+          v-for="categorys in CATEGORYS"
+          :key="categorys.name"
+          to='/menu' link
+        >
+          <v-list-item-content>
+            <v-list-item-title v-text="categorys.name"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+
+        <!-- <v-expansion-panels accordion>
           <v-expansion-panel>
             <v-expansion-panel-header>Меню<v-icon>mdi-food</v-icon></v-expansion-panel-header>
               <v-expansion-panel-content>
@@ -107,7 +126,7 @@
 
               </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
+        </v-expansion-panels> -->
 
 
           <v-list-item to='/' link>
@@ -155,14 +174,21 @@
       color="#15151d"
       dark
     >
+    
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+       
       <v-toolbar-title>Кафе-бистро Очаг</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-        <v-btn icon>
+      <strong class="subheading  ml-5 text-h5 text-center text-decoration-none"><a href="tel:+7(3812)472211" ><span class="white--text">47-22-11</span></a></strong>
+        <v-spacer>  
+     </v-spacer>
+
+       
+      <v-spacer></v-spacer>
+       <v-btn icon x-large class="mr-15">
+       
           <v-icon>mdi-cart</v-icon>
+          
         </v-btn>
-     
     </v-app-bar>
 
     <v-main>
@@ -195,9 +221,6 @@
       color = "#15151d"
     >
       <v-card-title >
-        <strong class="subheading"><a href="tel:+496170961709" >Тел: 47-22-11</a></strong>
-        
-
         <v-spacer></v-spacer>
 
         <v-btn
@@ -222,6 +245,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'App',
 
@@ -235,6 +259,25 @@ export default {
         'mdi-instagram',
       ],
     }),
+    computed:{
+      ...mapGetters([
+        'CATEGORYS'
+      ]),
+    },
+    methods:{
+      ...mapActions([
+        'GET_CATEGORYS_FROM_API'
+      ]),
+    },
+    mounted(){
+      this.GET_CATEGORYS_FROM_API()
+      .then((response)=>{
+        if(response.data)
+        {
+          console.log('data is true');
+        }
+      })
+    }
 };
 </script>
 <style scoped>
@@ -242,7 +285,15 @@ export default {
    background-image: url("./assets/tree.jpg");
    background-size: cover;
 }
-a:hover{
+a{
+  text-decoration: none;
+  color: white;
+}
+a:active {
+  text-decoration: none;
+  color: white;
+}
+/* a:hover{
   color: rgb(110, 48, 24);
-};
+}; */
 </style>
