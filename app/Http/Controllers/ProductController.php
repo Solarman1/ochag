@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use Image;
 
@@ -21,7 +21,7 @@ class ProductController extends Controller
         $img = Image::make($image->getRealPath());
         $img->resize(500,300);
         $imageName  = $image->getClientOriginalName();
-        $pathToSave = public_path('storage\productImages\uploads\\'.$imageName);
+        $pathToSave = public_path('storage/productImages/uploads/'.$imageName);
         
         $img->save($pathToSave);
     }
@@ -39,13 +39,6 @@ class ProductController extends Controller
         $pathToDb   = "uploads/$imageName";
 
         $this->saveAndResize($image);
-
-       // $image->store('uploads', 'public');
-        // $pathToSave = public_path('storage\productImages\uploads\\'.$imageName);
-        // $img->save($pathToSave);
-        //$img->save(public_path('/productImages/'.$imageName));
-        // print_r($pathToSave);
-        // die();
 
         Product::create([
             'categoriId'  => $categoryId,
@@ -73,9 +66,11 @@ class ProductController extends Controller
             $image      = $requestForm->file('img');
             $imageName  = $image->getClientOriginalName();
             $oldImage   = $requestForm->input('imgEditHidden');
+            
             $pathToDb   = "uploads/$imageName";
 
-            Storage::delete($oldImage);
+
+            Storage::disk('public')->delete("$oldImage");
             $this->saveAndResize($image);
         } 
 
@@ -94,13 +89,14 @@ class ProductController extends Controller
 
     public function delete(Request $requestForm)
     {
-        $product = new Product();
-
         $categoryId = session()->get('categoriId');
-        $productId = $requestForm->input('productId');
 
-        //Storage::delete($product->image);
+        $productId = $requestForm->input('productId');
         //dd($productId);
+
+        $oldImage   = $requestForm->input('imageHiddenPost');
+        Storage::disk('public')->delete("$oldImage");
+
         $article = Product::findOrFail($productId);
         $article->delete();
         

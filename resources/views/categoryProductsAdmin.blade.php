@@ -111,6 +111,7 @@
                     <form action="/productDelete" method="post">
                       @csrf
                       <input name = "productId" type="hidden" value="{{$row->id}}">
+                      <input type="hidden" name = "imageHiddenPost" value="{{$row->image}}">
                       <button type="submit" class="btn btn-sm btn-outline-secondary">Удалить</button>
                     </form>
                   </div>                            
