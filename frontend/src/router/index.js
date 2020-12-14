@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Contacts from '../views/Contacts.vue'
-import Admin from '../views/Admin/Admin.vue'
 import MenuItem from '../views/Menu/Menu.vue'
 
 Vue.use(VueRouter)
@@ -16,7 +15,8 @@ Vue.use(VueRouter)
   {
     path: '/menu',
     name: 'Menu',
-    component: MenuItem
+    component: MenuItem,
+    props: true
   },
   {
     path: '/about',
@@ -31,11 +31,6 @@ Vue.use(VueRouter)
     name: 'Contacts',
     component: Contacts
   },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin
-  }
 ]
 
 const router = new VueRouter({

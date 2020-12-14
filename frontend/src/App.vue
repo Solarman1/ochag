@@ -9,57 +9,6 @@
     >
       <v-list dense>
 
-
-        <!-- <v-expansion-panels accordion>
-          <v-expansion-panel>
-            <v-expansion-panel-header>О нас <v-icon>mdi-home</v-icon></v-expansion-panel-header>
-              <v-expansion-panel-content>
-
-                <v-list-item  to='/about' link>
-                  <v-list-item-action >
-                   
-                  </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>О нас</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-
-                <v-list-item to='/' link>
-                  <v-list-item-content>
-                      <v-list-item-title>Фото</v-list-item-title>
-                    </v-list-item-content>
-                  <v-list-item-action>
-                    <v-icon>mdi-camera</v-icon>
-                  </v-list-item-action>
-                    
-                </v-list-item>
-
-                <v-list-item to='/' link>
-                  
-                    <v-list-item-content>
-                      <v-list-item-title>Летняя веранда</v-list-item-title>
-                    </v-list-item-content>
-                    <v-list-item-action>
-                    
-                  </v-list-item-action>
-                </v-list-item>
-
-                <v-list-item to='/' link>
-            
-                    <v-list-item-content>
-                      <v-list-item-title>Комплексные обеды</v-list-item-title>
-                    </v-list-item-content>
-                          <v-list-item-action>
-                    
-                  </v-list-item-action>
-                </v-list-item>
-
-
-
-              </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels> -->
-
         <v-list-group dark>
         <template v-slot:activator>
           <v-list-item-content>
@@ -69,65 +18,15 @@
 
         <v-list-item
           v-for="categorys in CATEGORYS"
-          :key="categorys.name"
-          to='/menu' link
+          :key="categorys.id"
+          @click="productClick(categorys.id)"
+      
         >
           <v-list-item-content>
             <v-list-item-title v-text="categorys.name"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
-
-        <!-- <v-expansion-panels accordion>
-          <v-expansion-panel>
-            <v-expansion-panel-header>Меню<v-icon>mdi-food</v-icon></v-expansion-panel-header>
-              <v-expansion-panel-content>
-
-                <v-list-item to='/menu' link>
-                 
-                    <v-list-item-content>
-                      <v-list-item-title>Шашлыки</v-list-item-title>
-                    </v-list-item-content>
-                     <v-list-item-action>
-                    
-                  </v-list-item-action>
-                </v-list-item>
-
-                <v-list-item to='/' link>
-                  
-                    <v-list-item-content>
-                      <v-list-item-title>Комплексные обеды</v-list-item-title>
-                    </v-list-item-content>
-                    <v-list-item-action>
-                   
-                  </v-list-item-action>
-                </v-list-item>
-
-                <v-list-item to='/' link>
-                 
-                    <v-list-item-content>
-                      <v-list-item-title>Пицца</v-list-item-title>
-                    </v-list-item-content>
-                     <v-list-item-action>
-                    <v-icon>mdi-pizza</v-icon>
-                  </v-list-item-action>
-                </v-list-item>
-
-                <v-list-item to='/' link>
-                
-                    <v-list-item-content>
-                      <v-list-item-title>Супы</v-list-item-title>
-                    </v-list-item-content>
-                      <v-list-item-action>
-                    <v-icon>mdi-soup</v-icon>
-                  </v-list-item-action>
-                </v-list-item>
-
-
-              </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels> -->
-
 
           <v-list-item to='/' link>
             <v-list-item-action>
@@ -246,9 +145,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
+
 export default {
   name: 'App',
-
+  components: {
+     
+    },
    props: {
       source: String,
     },
@@ -261,13 +164,16 @@ export default {
     }),
     computed:{
       ...mapGetters([
-        'CATEGORYS'
+        'CATEGORYS',
       ]),
     },
     methods:{
       ...mapActions([
-        'GET_CATEGORYS_FROM_API'
+        'GET_CATEGORYS_FROM_API',
       ]),
+    productClick(article) {
+        this.$router.push( {name: 'Menu', query: { 'product': article }})
+      },
     },
     mounted(){
       this.GET_CATEGORYS_FROM_API()
