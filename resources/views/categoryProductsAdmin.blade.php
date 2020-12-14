@@ -111,6 +111,7 @@
                     <form action="/productDelete" method="post">
                       @csrf
                       <input name = "productId" type="hidden" value="{{$row->id}}">
+                      <input type="hidden" name = "imageHiddenPost" value="{{$row->image}}">
                       <button type="submit" class="btn btn-sm btn-outline-secondary">Удалить</button>
                     </form>
                   </div>                            
@@ -213,11 +214,7 @@
 
 
       for(let i = 0; i < pName.length; i++)
-<<<<<<< HEAD
-      {      
-=======
       {     
->>>>>>> ca060721e73340ee900f9e9e76e1986b28feb00e
         cartData = {
           productId    : productId[i].value,
           pName        : pName[i].value,

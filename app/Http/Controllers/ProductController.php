@@ -66,9 +66,11 @@ class ProductController extends Controller
             $image      = $requestForm->file('img');
             $imageName  = $image->getClientOriginalName();
             $oldImage   = $requestForm->input('imgEditHidden');
+            
             $pathToDb   = "uploads/$imageName";
 
-            Storage::delete($oldImage);
+
+            Storage::disk('public')->delete("$oldImage");
             $this->saveAndResize($image);
         } 
 
@@ -91,6 +93,10 @@ class ProductController extends Controller
 
         $productId = $requestForm->input('productId');
         //dd($productId);
+
+        $oldImage   = $requestForm->input('imageHiddenPost');
+        Storage::disk('public')->delete("$oldImage");
+
         $article = Product::findOrFail($productId);
         $article->delete();
         
