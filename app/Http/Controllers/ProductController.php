@@ -62,7 +62,7 @@ class ProductController extends Controller
         $weight      = $requestForm->input('weight');
         $description = $requestForm->input('description');
 
-        if ($requestForm->has('img')) {
+        if($requestForm->has('img')){
             $image      = $requestForm->file('img');
             $imageName  = $image->getClientOriginalName();
             $oldImage   = $requestForm->input('imgEditHidden');
@@ -72,19 +72,30 @@ class ProductController extends Controller
 
             Storage::disk('public')->delete("$oldImage");
             $this->saveAndResize($image);
-        } 
+            $article = Product::findOrFail($productId);
+            $article->update([
+                'categoriId'  => $categoryId,
+                'name'        => "$name",
+                'price'       => $price,
+                'weight'      => "$weight",
+                'description' => "$description",
+                'image'       => "$pathToDb",
+            ]);   
+        }
+        else
+            {
+                $article = Product::findOrFail($productId);
+                $article->update([
+                    'categoriId'  => $categoryId,
+                    'name'        => "$name",
+                    'price'       => $price,
+                    'weight'      => "$weight",
+                    'description' => "$description",
+                ]); 
+            }
 
-        $article = Product::findOrFail($productId);
-        $article->update([
-            'categoriId'  => $categoryId,
-            'name'        => "$name",
-            'price'       => $price,
-            'weight'      => "$weight",
-            'description' => "$description",
-            'image'       => "$pathToDb",
-        ]);
-
-        return redirect()->to("/admin/category/{$categoryId}");
+        
+            return redirect()->to("/admin/category/{$categoryId}");
     }
 
     public function delete(Request $requestForm)
