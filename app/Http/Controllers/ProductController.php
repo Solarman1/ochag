@@ -63,10 +63,6 @@ class ProductController extends Controller
     {
         $productId  = $requestForm->input('productEditId');
         $categoryId = session()->get('categoriId');
-        $product = new Product();
-        $productImg = $requestForm->input('img');
-        // print_r($requestForm->all());
-        // die();
 
         $name        = $requestForm->input('name');
         $price       = $requestForm->input('price');
