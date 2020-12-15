@@ -1,21 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+//import Home from '../views/Home.vue'
 import Contacts from '../views/Contacts.vue'
-import MenuItem from '../views/Menu/Menu.vue'
+import ProductMenu from '../views/Menu/ProductMenu.vue'
+import CategoryMenu from '../views/Menu/CategoryMenu.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'CategoryMenu',
+    component: CategoryMenu,
+    props: true
   },
   {
     path: '/menu',
-    name: 'Menu',
-    component: MenuItem,
+    name: 'ProductMenu',
+    component: ProductMenu,
     props: true
   },
   {

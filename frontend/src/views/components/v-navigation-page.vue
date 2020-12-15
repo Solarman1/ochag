@@ -1,9 +1,5 @@
 <template>
-
-  <v-app id="inspire" >
-
-
-    <!-- <v-navigation-drawer
+<v-navigation-drawer
       v-model="drawer"
       app
       color="#15151d"
@@ -12,7 +8,7 @@
       <v-list dense>
 
         <v-list-group dark>
-        <template v-slot:activator>
+        <template v-slot:activator  >
           <v-list-item-content>
             <v-list-item-title>Меню</v-list-item-title>
           </v-list-item-content>
@@ -24,6 +20,7 @@
           @click="productClick(categorys.id)"
       
         >
+        <!-- <router-link :to="{ name: '/menu', params: { 'product': categorys.id }}">User</router-link> -->
           <v-list-item-content>
             <v-list-item-title v-text="categorys.name"></v-list-item-title>
           </v-list-item-content>
@@ -67,95 +64,48 @@
                 </v-list-item>
 
       </v-list>
-    </v-navigation-drawer> -->
-
-    <v-header-page :drawerChange="drawerChange" :drawer="null" />
-    <v-navigation-page  />
-    <!-- <v-app-bar
-      app
-      color="#15151d"
-      dark
-    >
-    
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-       
-      <v-toolbar-title>Кафе-бистро Очаг</v-toolbar-title>
-      <strong class="subheading  ml-5 text-h5 text-center text-decoration-none"><a href="tel:+7(3812)472211" ><span class="white--text">47-22-11</span></a></strong>
-        <v-spacer>  
-     </v-spacer>
-
-       
-      <v-spacer></v-spacer>
-       <v-btn icon x-large class="mr-15">
-       
-          <v-icon>mdi-cart</v-icon>
-          
-        </v-btn>
-    </v-app-bar> -->
-
-    <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="text-center">
-            
-            <router-view />
-
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-
-    <v-footer-page />
-  </v-app>
+    </v-navigation-drawer>
 </template>
-
 <script>
-import VFooterPage from './views/components/v-footer-page.vue';
-import VHeaderPage from './views/components/v-header-page.vue';
-import VNavigationPage from './views/components/v-navigation-page.vue';
+import { mapActions, mapGetters } from 'vuex';
+import {eventEmitter} from '../../main';
 
 
 export default {
-  name: 'App',
-  
-  components: {
-    VFooterPage,
-    VHeaderPage,
-    VNavigationPage
-     
+    name: "v-navigation-page",
+    data(){
+        return {
+            drawer: null
+        }
     },
-    data: () => ({
- 
-    }),
-    computed:{},
+    computed:{
+      ...mapGetters([
+        'CATEGORYS',
+      ]),
+    },
     methods:{
-      drawerChange(){
-
-      },
+        ...mapActions([
+            'GET_CATEGORYS_FROM_API',
+        ]),
+        productClick(article) {
+            this.$router.push({name: 'ProductMenu', query: { 'product': article }}).catch(()=>{});
+        },
+        
     },
-    mounted(){}
-};
+    mounted(){
+        this.GET_CATEGORYS_FROM_API()
+        .then((response)=>{
+            if(response.data)
+            {
+                console.log('data is true');
+            }
+        }),
+        eventEmitter.$on('changeDrawer', () => {
+            this.drawer = !(this.drawer);
+        })
+    }
+}
 </script>
-<style scoped>
-#inspire{
-   background-image: url("./assets/tree.jpg");
-   background-size: cover;
-}
-a{
-  text-decoration: none;
-  color: white;
-}
-a:active {
-  text-decoration: none;
-  color: white;
-}
-/* a:hover{
-  color: rgb(110, 48, 24);
-}; */
+<style>
+
 </style>

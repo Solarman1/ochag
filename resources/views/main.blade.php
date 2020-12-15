@@ -25,10 +25,13 @@
       <div class="container">
           <div class="card"> 
               <div class="card-header">
-                  <form action="/category" method="post">
+                  <form action="/category" method="post" enctype="multipart/form-data">
                       @csrf
                       <h1 class="h2">Введите название категории</h1>
                       <p></p>
+                      <p>Картинка категории: 
+                        <input type="file" name="img">
+                      </p>
                       <input name="categoryName" class="form-control">
                       <button type="submit" class="btn btn-success">Сохранить</button>
                   </form>
@@ -56,6 +59,7 @@
         <tr>
           <th>№</th>
           <th>Название категории</th>
+          <th>img</th>
           <th>Действие</th>
 
         </tr>
@@ -67,6 +71,8 @@
             <input name = "hiddenCategoryId" type="hidden" value="{{$row->id}}">
             <td><a class="nav-link" href="/admin/category/{{$row->id}}">{{$row->name}}</a></td>
             <input id = "pName{{$row->id}}" name = "pName" type="hidden" value="{{$row->name}}">
+            <td><img class="card-img-top" alt="" style="height: 150px; width: 150px; margin: auto; display: block;" src="{{asset('/storage/categoryImages/'.$row->image)}}" data-holder-rendered="true"></td>
+            <input id = "pImage{{$row->id}}" type="hidden" name = "imageHidden" value="{{$row->image}}">
             <td>
                 <button id = "{{$row->id}}" name = "modelButton" type="button"  class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#categoryEditModal">Редактировать</button> 
                 <form action="/deleteCategory" method="post">
@@ -96,13 +102,15 @@
         <div class="container">
             <div class="card"> 
                 <div class="card-header">
-                    <form action="/category" method="post">
+                    <form action="/category" method="post" enctype="multipart/form-data">
                       @csrf  
                       @method('PUT')
                         <h1 class="h2"></h1>
                         <p></p>
                         <input id="categoryNameId" name="categoryName" class="form-control">
                         <input id="editCategoryId" name="categoryId" class="form-control" type="hidden">
+                        <input type="file" name="img">
+                        <input id = "imgEditHidden" type="hidden" name="imgEditHidden">
                         <button type="submit" class="btn btn-success">Сохранить</button>
                     </form>
                 </div>                                                    
@@ -123,10 +131,11 @@
       const nameEditId        = document.getElementById('categoryNameId');
       const editCategoryId    = document.getElementById('editCategoryId');
       const modelButton       = document.getElementsByName('modelButton');
+      const imgEdit           = document.getElementById('imgEditHidden');
 
       const categoryId    = document.getElementsByName('hiddenCategoryId');
       const pName         = document.getElementsByName('pName');
-
+      const pImage       = document.getElementsByName('imageHidden');
       
       var cartData;
       var arrCartData = [];
@@ -136,7 +145,8 @@
       {
         cartData = {
           categoryId  : categoryId[i].value,
-          pName  : pName[i].value,
+          pName       : pName[i].value,
+          pImage      : pImage[i].value,
         };
         arrCartData[i] = cartData;
       }
@@ -152,7 +162,8 @@
             if(modelButtonId.id == arrCartData[i].categoryId )
             {
               nameEditId.value         = arrCartData[i].pName;
-              editCategoryId.value     = arrCartData[i].categoryId ;
+              editCategoryId.value     = arrCartData[i].categoryId;
+              imgEdit.value           = arrCartData[i].pImage;
             }
           }
         });
