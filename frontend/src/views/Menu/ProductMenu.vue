@@ -7,7 +7,8 @@
                 :key="products.id"        
                 > 
                 <v-product-item 
-                     :product_data="products" 
+                     :product_data="products"
+                     @addToCart="addToCart" 
                 />
             </v-col> 
         </v-row>   
@@ -43,7 +44,11 @@ export default {
     methods: {
       ...mapActions([
         'GET_PRODUCTS_FROM_API',
+        'ADD_TO_CART'
       ]),
+      addToCart(data){
+        this.ADD_TO_CART(data);
+      }
     },
     mounted() {
       if (!this.PRODUCTS.length) {

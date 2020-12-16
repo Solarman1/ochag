@@ -32,7 +32,8 @@ Vue.use(VueRouter)
   {
     path: '/cart',
     name: 'Cart',
-    comment: Cart
+    component: Cart,
+    props: true
   },
   {
     path: '/contacts',

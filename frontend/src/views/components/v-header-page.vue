@@ -21,8 +21,10 @@
        
       <v-spacer></v-spacer>
        <v-btn icon x-large class="mr-15">
-       <router-link to="/cart">
+       <router-link :to="{name: 'Cart', params: {cart_data: CART}}">
+       Корзина
           <v-icon>mdi-cart</v-icon>
+          : {{CART.length}}
         </router-link>  
         </v-btn>
     </v-app-bar>
@@ -30,9 +32,13 @@
 <script>
 
 import {eventEmitter} from '../../main';
+import {mapGetters} from 'vuex'
 
 export default {
-    
+     data() {
+      return {
+      }
+    },
     name: "v-header-page",
     props: {
     },
@@ -41,10 +47,11 @@ export default {
             eventEmitter.$emit('changeDrawer');
         },  
     },
-    data() {
-      return {
-      }
-    }
+    computed: {
+      ...mapGetters([
+        'CART'
+      ])
+    },  
 }
 </script>
 <style>
