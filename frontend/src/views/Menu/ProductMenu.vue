@@ -35,28 +35,11 @@ export default {
         'CATEGORYPRODUCTS'
       ]),
       productItems()  {
-        let productSorted = this.PRODUCTS.filter(item => item.categoriId == this.$route.query.product);
-        console.log(productSorted);
-        return productSorted;
-      }
+          let productSorted = this.PRODUCTS.filter(item => item.categoriId == this.$route.query.product);
+          // console.log(productSorted);
+          return productSorted;
+        }
       },
-      product() {
-      //   let result = {};
-      //   let arrRes = [];
-      //   let vm = this;
-
-      //   this.PRODUCTS.filter(function(item) {
-      //       if (item.categoriId === vm.$route.query.product) {
-      //       result = item;
-      //       arrRes = result;
-      //       console.log('this if');  
-      //     } 
-      //   })
-      //   console.log(arrRes);
-      //   arrRes = result;
-      //   return arrRes;
-      // }
-    },
     methods: {
       ...mapActions([
         'GET_PRODUCTS_FROM_API',
@@ -65,8 +48,8 @@ export default {
     mounted() {
       if (!this.PRODUCTS.length) {
         this.GET_PRODUCTS_FROM_API();
-        console.log('this route -> ');
-        console.log(this.$route.query.product);
+        // console.log('this route -> ');
+        // console.log(this.$route.query.product);
       }      
     }
   }

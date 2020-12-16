@@ -1,9 +1,26 @@
 <template>
-    <div class="categoryMeny">
-         <v-container fluid> 
+    <div class="categoryMeny ">
+         <v-img
+              src='../../assets/meat.gif'
+              height="300px"
+              >
+              
+        </v-img>
+          <v-card
+            class="pa-2"
+            outlined
+            shaped
+            dark
+          >
+            <div class="menuTitle"> Меню </div>
+          </v-card>
+     
+     
+         <v-container fluid>
+            
             <v-row dense>
+             
                 <v-col
-          
                 v-for="categorys in CATEGORYS"
                         :key="categorys.id"
                         
@@ -46,5 +63,7 @@ export default {
 }
 </script>
 <style scoped>
-
+.menuTitle{
+  font-size: 25px;
+}
 </style>

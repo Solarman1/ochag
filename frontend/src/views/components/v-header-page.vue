@@ -1,5 +1,4 @@
 <template>
-
     <v-app-bar
       app
       color="#15151d"
@@ -10,21 +9,21 @@
        <v-img
         max-height="150"
         max-width="50"
-        src="../../assets/logo.jpg"
+        src="../../assets/ochag_grill.png"
         >
         </v-img>
 
-      <v-toolbar-title > <router-link to="/"> Кафе-бистро Очаг </router-link> </v-toolbar-title>
-      <strong class="subheading  ml-5 text-h5 text-center text-decoration-none"><a href="tel:+7(3812)472211" ><span class="white--text">47-22-11</span></a></strong>
+      <v-toolbar-title class="ml-5 text-center white--text"> <router-link to="/" class="white--text"> Кафе-бистро Очаг </router-link> </v-toolbar-title>
+      <strong class="subheading  ml-5 text-h5 text-center text-decoration-none"> <v-icon>mdi-phone</v-icon> <a href="tel:+7(3812)472211" ><span class="white--text">47-22-11</span></a></strong>
         <v-spacer>  
      </v-spacer>
 
        
       <v-spacer></v-spacer>
        <v-btn icon x-large class="mr-15">
-       
+       <router-link to="/cart">
           <v-icon>mdi-cart</v-icon>
-          
+        </router-link>  
         </v-btn>
     </v-app-bar>
 </template>

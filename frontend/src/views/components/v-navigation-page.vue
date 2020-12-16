@@ -5,34 +5,40 @@
       color="#15151d"
       dark
     >
-      <v-list dense>
-
+      <v-list dense >
         <v-list-group dark>
-        <template v-slot:activator  >
-          <v-list-item-content>
-            <v-list-item-title>Меню</v-list-item-title>
+        
+        <template  v-slot:activator >
+          <router-link :to="{name: 'CategoryMenu'}">
+          <v-list-item-content >
+            <v-list-item-title >Меню</v-list-item-title>
           </v-list-item-content>
+           </router-link>
         </template>
-
-        <v-list-item
+       
+        
+          <v-list-item
           v-for="categorys in CATEGORYS"
           :key="categorys.id"
           @click="productClick(categorys.id)"
       
         >
+      
         <!-- <router-link :to="{ name: '/menu', params: { 'product': categorys.id }}">User</router-link> -->
-          <v-list-item-content>
-            <v-list-item-title v-text="categorys.name"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+            <v-list-item-content>
+              <v-list-item-title v-text="categorys.name"></v-list-item-title>
+            </v-list-item-content>
+      
+          </v-list-item>
+       
       </v-list-group>
 
-          <v-list-item to='/' link>
+          <v-list-item to='About' link>
             <v-list-item-action>
-              <v-icon>mdi-gift</v-icon>
+              <v-icon>mdi-home</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Акции</v-list-item-title>
+              <v-list-item-title>О нас</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -47,10 +53,10 @@
 
                 <v-list-item to='/' link>
                   <v-list-item-action>
-                    <v-icon>mdi-heart</v-icon>
+                    <v-icon>mdi-gift</v-icon>
                   </v-list-item-action>
                     <v-list-item-content>
-                      <v-list-item-title>Отзывы</v-list-item-title>
+                      <v-list-item-title>Акции</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
 
@@ -107,5 +113,8 @@ export default {
 }
 </script>
 <style>
-
+.v-application .primary--text {
+    color:  #F4511E !important;
+    caret-color:  #F4511E !important;
+}
 </style>
