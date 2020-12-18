@@ -9,10 +9,10 @@ export default{
     let isProductExists = false;
     if (state.cart.length) {
         state.cart.map(function (item) {
-        if (item.article === product.article) {
-          isProductExists = true;
-          item.quantity++
-        }
+        if (item.id === product.id) {
+                isProductExists = true;
+                item.quantity++
+            }
         })
         if (!isProductExists) {
             state.cart.push(product)

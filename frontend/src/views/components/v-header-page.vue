@@ -32,7 +32,7 @@
 <script>
 
 import {eventEmitter} from '../../main';
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
      data() {
@@ -42,16 +42,22 @@ export default {
     name: "v-header-page",
     props: {
     },
-    methods: {
-        drawerChange(){
-            eventEmitter.$emit('changeDrawer');
-        },  
-    },
     computed: {
       ...mapGetters([
+        'PRODUCTS',
         'CART'
       ])
-    },  
+    }, 
+    methods: {
+      ...mapActions([
+        'GET_PRODUCTS_FROM_API',
+        'ADD_TO_CART'
+      ]),
+      drawerChange(){
+          eventEmitter.$emit('changeDrawer');
+      }, 
+       
+    },    
 }
 </script>
 <style>
