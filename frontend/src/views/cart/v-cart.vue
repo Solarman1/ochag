@@ -11,28 +11,18 @@
             </router-link>
             <h1>Корзина</h1>
             <p v-if="!cart_data.length">Корзина пуста...</p>
-        </v-card>
-    
-    
+        </v-card>   
     
     <vCartItem
     class="mx-auto" 
     max-width="344" 
      v-for="(item, index) in cart_data"
-        :key="item.article"
+        :key="item.name"
         :cart_item_data="item"
         @deleteFromCart="deleteFromCart(index)"
         @increment="increment(index)"
         @decrement="decrement(index)"
-    />  
-    
-    <div class="v-cart__total">
-      <p class="total__name">Total:</p>
-      <!-- <p>{{cartTotalCost | toFix | formattedPrice}}</p> -->
-    </div>
-       
-  
-    
+    />    
   </div>
 </template>
 <script>

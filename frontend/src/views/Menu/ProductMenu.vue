@@ -27,13 +27,14 @@ export default {
     props: {},
     data() {
         return {
+          messages: [],
         }
 
     },
     computed: {
       ...mapGetters([
         'PRODUCTS',
-        'CATEGORYPRODUCTS'
+        'CART'
       ]),
       productItems()  {
           let productSorted = this.PRODUCTS.filter(item => item.categoriId == this.$route.query.product);
@@ -46,8 +47,14 @@ export default {
         'GET_PRODUCTS_FROM_API',
         'ADD_TO_CART'
       ]),
-      addToCart(data){
-        this.ADD_TO_CART(data);
+      addToCart(data) {
+        this.ADD_TO_CART(data)
+          .then(() => {
+            let timeStamp = Date.now().toLocaleString();
+            this.messages.unshift(
+              {name: 'Товар добавлен в корзину', icon: 'check_circle', id: timeStamp}
+            )
+          })
       }
     },
     mounted() {

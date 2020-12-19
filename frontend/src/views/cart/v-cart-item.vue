@@ -40,7 +40,7 @@
             <td>{{cart_item_data.price}}</td>
             <td>
                 <span class="quantity__btn" @click="decrementItem">-</span>
-                <!-- {{cart_item_data.quantity}} -->
+                 <!-- <p>{{cartTotalCost | toFix | formattedPrice}}</p> -->
                 <span class="quantity__btn" @click="incrementItem">+</span>
             </td>
             <td>{{formattedPrice}}</td>
@@ -108,7 +108,7 @@
                     ></v-textarea>
 
                     <v-checkbox
-                    v-model="checkbox"
+                    
                     :rules="[v => !!v || 'You must agree to continue!']"
                     label="Я прочитал и согласен с условиями пользовательского соглашения и политики конфиденциальности, даю согласие на обработку персональных данных."
                     required
@@ -171,11 +171,6 @@
     </v-card> -->
  </div>
 </template>
-
-
-
-
- 
 <script>
 export default {
     name: "v-cart-item",
