@@ -22,8 +22,8 @@ import {mapGetters, mapActions} from 'vuex'
 import VProductItem from '../components/v-product-item.vue'
 
 export default {
-  components: {VProductItem},
     name: "ProductMenu",
+    components: {VProductItem},
     props: {},
     data() {
         return {
@@ -47,21 +47,23 @@ export default {
         'GET_PRODUCTS_FROM_API',
         'ADD_TO_CART'
       ]),
-      addToCart(data) {
-        this.ADD_TO_CART(data)
-          .then(() => {
-            let timeStamp = Date.now().toLocaleString();
-            this.messages.unshift(
-              {name: 'Товар добавлен в корзину', icon: 'check_circle', id: timeStamp}
-            )
-          })
-      }
+
+      addToCart(data){
+        this.ADD_TO_CART(data).
+        then(() => {
+          let timeStamp = Date.now().toLocaleString();
+          this.messages.unshift(
+            {name: 'Товар добавлен', id: timeStamp}
+          )
+        })
+      },
     },
     mounted() {
       if (!this.PRODUCTS.length) {
         this.GET_PRODUCTS_FROM_API();
         // console.log('this route -> ');
         // console.log(this.$route.query.product);
+
       }      
     }
   }

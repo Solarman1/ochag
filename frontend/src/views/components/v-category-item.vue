@@ -1,7 +1,7 @@
 <template>
 <div class="v-category-item">
            
-                <v-card
+              <v-card
                 class="mx-auto" 
                 max-width="344" >
 
@@ -15,10 +15,7 @@
                         {{category_data.name}}
                         </v-card-title> 
                 </router-link>
-                    
-                        
-
-                    </v-card>    
+              </v-card>    
                     
 </div>
     

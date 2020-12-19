@@ -22,9 +22,8 @@
       <v-spacer></v-spacer>
        <v-btn icon x-large class="mr-15">
        <router-link :to="{name: 'Cart', params: {cart_data: CART}}">
-       Корзина
           <v-icon>mdi-cart</v-icon>
-          : {{CART.length}}
+          : {{CARTITEMSLENGTH}}
         </router-link>  
         </v-btn>
     </v-app-bar>
@@ -32,7 +31,7 @@
 <script>
 
 import {eventEmitter} from '../../main';
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
      data() {
@@ -41,17 +40,36 @@ export default {
     },
     name: "v-header-page",
     props: {
-    },
-    methods: {
-        drawerChange(){
-            eventEmitter.$emit('changeDrawer');
-        },  
+      cart_data: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     computed: {
       ...mapGetters([
-        'CART'
+        'CART',
+        'CARTITEMSLENGTH'
       ])
-    },  
+    }, 
+    methods: {
+      ...mapActions([
+      ]),
+      drawerChange(){
+          eventEmitter.$emit('changeDrawer');
+      },      
+    },
+    // mounted() {
+    //   this.ADD_TO_CART()
+    //   .then((response)=> 
+    //   {
+    //     if(response)
+    //     {
+    //       console.log('up to cart'+response);
+    //     }
+    //   })
+    // },   
 }
 </script>
 <style>

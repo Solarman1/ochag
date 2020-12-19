@@ -8,16 +8,14 @@ export default {
     CART(state){
         return state.cart;
     },
-    ADD_TO_CART({commit}, product) {
-        commit('SET_CART', product);
-      },
-      INCREMENT_CART_ITEM({commit}, index) {
-        commit('INCREMENT', index)
-      },
-      DECREMENT_CART_ITEM({commit}, index) {
-        commit('DECREMENT', index)
-      },
-      DELETE_FROM_CART({commit}, index) {
-        commit('REMOVE_FROM_CART', index)
-      }
+    CARTITEMSLENGTH(state){
+        //arr.reduce((sum, current) => sum + current);
+        let total = [];
+        state.cart.forEach((item) => {
+           total.push(item.quantity);
+        });
+        let result = total.reduce((sum, current) => sum + current, 0);
+        //console.log(result);
+        return result;
+    }   
 }
