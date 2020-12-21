@@ -5,7 +5,6 @@ import Contacts from '../views/Contacts.vue'
 import ProductMenu from '../views/Menu/ProductMenu.vue'
 import CategoryMenu from '../views/Menu/CategoryMenu.vue'
 import Cart from '../views/cart/v-cart.vue'
-import Previos from '../views/Previos.vue'
 
 Vue.use(VueRouter)
 
@@ -21,11 +20,6 @@ Vue.use(VueRouter)
     name: 'ProductMenu',
     component: ProductMenu,
     props: true
-  },
-  {
-    path: '/previos',
-    name: 'previos',
-    component: Previos
   },
   {
     path: '/about',
