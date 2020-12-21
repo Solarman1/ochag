@@ -17,7 +17,7 @@ let store = new Vuex.Store({
     isDesktop: true,
     categorys: [],
     products: [],
-    cart: []
+    cart: [],
   },
   mutations,
   actions,

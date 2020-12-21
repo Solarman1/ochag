@@ -6,28 +6,34 @@
     >
      
      <v-card
-      class="flex"
+      class="flex text-center"
       flat
       tile
       color = "#15151d"
     >
-      <v-card-title >
+      <v-card-text >
         <v-spacer></v-spacer>
 
         <v-btn
-          v-for="icon in icons"
-          :key="icon"
           class="mx-4"
           dark
           icon
         >
-          <v-icon size="24px">{{ icon }}</v-icon>
+          <a href="https://vk.com/ochag55" target="_blank"><v-icon size="24px">mdi-vk</v-icon></a>
         </v-btn>
-      </v-card-title>
+        
+        <v-btn
+          class="mx-4"
+          dark
+          icon
+        >
+          <a href="https://www.instagram.com/ochag_55/" target="_blank"><v-icon size="24px">mdi-instagram</v-icon></a>
+        </v-btn>
+      </v-card-text>
 
       <v-card-text class="py-2 white--text text-center">
-        <strong>г. Омск, Адреса: Ул. Волочаевская 19 к4 </strong>
-        <strong>, ул. Карла Либкнехта, 6</strong>
+        <strong class="footerText">Адреса: г. Омск, ул. Волочаевская 19 к4 </strong>
+        <strong class="footerText">, ул. Карла Либкнехта, 6</strong>
       </v-card-text>
     </v-card>
   
@@ -39,14 +45,12 @@ export default {
 
     data(){
         return {
-            icons: [
-                'mdi-vk',
-                'mdi-instagram',
-            ],
         }
     },
 }
 </script>
 <style>
-
+.footerText{
+  font-size: 20px;
+}
 </style>

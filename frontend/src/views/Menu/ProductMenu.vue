@@ -7,7 +7,8 @@
                 :key="products.id"        
                 > 
                 <v-product-item 
-                     :product_data="products" 
+                     :product_data="products"
+                     @addToCart="addToCart" 
                 />
             </v-col> 
         </v-row>   
@@ -21,52 +22,48 @@ import {mapGetters, mapActions} from 'vuex'
 import VProductItem from '../components/v-product-item.vue'
 
 export default {
-  components: {VProductItem},
     name: "ProductMenu",
+    components: {VProductItem},
     props: {},
     data() {
         return {
+          messages: [],
         }
 
     },
     computed: {
       ...mapGetters([
         'PRODUCTS',
-        'CATEGORYPRODUCTS'
+        'CART'
       ]),
       productItems()  {
-        let productSorted = this.PRODUCTS.filter(item => item.categoriId == this.$route.query.product);
-        console.log(productSorted);
-        return productSorted;
-      }
+          let productSorted = this.PRODUCTS.filter(item => item.categoriId == this.$route.query.product);
+          // console.log(productSorted);
+          return productSorted;
+        }
       },
-      product() {
-      //   let result = {};
-      //   let arrRes = [];
-      //   let vm = this;
-
-      //   this.PRODUCTS.filter(function(item) {
-      //       if (item.categoriId === vm.$route.query.product) {
-      //       result = item;
-      //       arrRes = result;
-      //       console.log('this if');  
-      //     } 
-      //   })
-      //   console.log(arrRes);
-      //   arrRes = result;
-      //   return arrRes;
-      // }
-    },
     methods: {
       ...mapActions([
         'GET_PRODUCTS_FROM_API',
+        'ADD_TO_CART'
       ]),
+
+      addToCart(data){
+        this.ADD_TO_CART(data).
+        then(() => {
+          let timeStamp = Date.now().toLocaleString();
+          this.messages.unshift(
+            {name: 'Товар добавлен', id: timeStamp}
+          )
+        })
+      },
     },
     mounted() {
       if (!this.PRODUCTS.length) {
         this.GET_PRODUCTS_FROM_API();
-        console.log('this route -> ');
-        console.log(this.$route.query.product);
+        // console.log('this route -> ');
+        // console.log(this.$route.query.product);
+
       }      
     }
   }
