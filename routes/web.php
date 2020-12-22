@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/admin/category/{id}', 'AdminPages\AdminCategorysController@getCategorys');
     Route::get('/admin/products/{id}', 'AdminPages\AdminProductsController@getProducts');
 
-    Route::post('/category', 'CategoryController@store');
+    Route::post('/category', 'CategoryController@store')->name('categoryStore');
     Route::post('/deleteCategory', 'CategoryController@delete');
     Route::put('/category', 'CategoryController@update');
 

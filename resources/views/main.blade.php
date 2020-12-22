@@ -25,7 +25,7 @@
       <div class="container">
           <div class="card"> 
               <div class="card-header">
-                  <form action="/category" method="post" enctype="multipart/form-data">
+                  <form action="http://www.ochag55.ru:8080/category" method="post" enctype="multipart/form-data">
                       @csrf
                       <h1 class="h2">Введите название категории</h1>
                       <p></p>
@@ -102,7 +102,7 @@
         <div class="container">
             <div class="card"> 
                 <div class="card-header">
-                    <form action="/category" method="post" enctype="multipart/form-data">
+                    <form action="http://www.ochag55.ru:8080/category" method="post" enctype="multipart/form-data">
                       @csrf  
                       @method('PUT')
                         <h1 class="h2"></h1>

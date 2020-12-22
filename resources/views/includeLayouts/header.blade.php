@@ -7,7 +7,10 @@
     <li class="nav-item text-nowrap">
 
       @auth
-      <a class="nav-link" href="/logout">Выйти</a>
+      <form action="http://www.ochag55.ru:8080/logout" method="post" enctype="multipart/form-data">
+        <button type="submit" class="btn btn-success">Выйти</button>
+      </form>
+      
       @endauth
     </li>
   </ul>
