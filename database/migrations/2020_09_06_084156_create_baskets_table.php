@@ -17,6 +17,7 @@ class CreateBasketsTable extends Migration
             $table->id();
             $table->bigInteger('productId')->unsigned();
             $table->dateTime('date');
+            $table->bigInteger('quantity');
             $table->timestamps();
             $table->foreign('productId')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
         });
