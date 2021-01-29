@@ -22,5 +22,16 @@ export default{
             console.log(error);
             return error;
         })
+    },
+    POST_ORDER_TO_API({commit}){
+        return axios('http://127.0.0.1:8000/api/category', {
+            method: "POST"
+        }).then((categorys) => {
+            commit('SET_CATEGORYS_TO_STATE', categorys.data);
+            return categorys;
+        }).catch((error) => {
+            console.log(error);
+            return error;
+        })
     }
 }

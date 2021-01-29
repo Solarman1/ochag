@@ -20,8 +20,11 @@ class CategoryController extends Controller
         $img = Image::make($image->getRealPath());
         $img->resize(500,300);
         $imageName  = $image->getClientOriginalName();
-        $pathToSave = public_path('storage/categoryImages/'.$imageName);
+
+        //$pathToSave = public_path('storage/categoryImages/'.$imageName);
         //dd($pathToSave);
+        $pathToSave = public_path('storage\categoryImages\\'.$imageName);
+        
         $img->save($pathToSave);
     }
 

@@ -63,6 +63,7 @@
             <!-- <p> | toFix | formattedPrice}}</p> -->
             </h2>
     </v-card>    
+<<<<<<< HEAD
   
       
     
@@ -71,12 +72,23 @@
                 v-if="cart_data.length"
             >
             <v-card-title class="text--center">Оформление заказа</v-card-title>
+=======
+            <v-card
+                class="mt-15 mx-auto pa-16"
+                v-if="cart_data.length"
+                
+            >
+            <v-card-title class="text--center">Оформление заказа</v-card-title>
+
+            <template>
+>>>>>>> 12c8afc7aa612484944f77c0d3aa54803ccc0e72
               <v-form
                     ref="form"
                     v-model="valid"
                     lazy-validation
                     class="pb-10"
                 >
+<<<<<<< HEAD
                     <v-text-field
                     v-model="name"
                     :counter="10"
@@ -154,6 +166,186 @@
                     </v-btn>
                 </v-form >
 
+=======
+
+                <v-container>
+                <v-row>
+                   <v-col md="5"> 
+                     <v-text-field
+                    v-model="name"
+                    
+                    :rules="nameRules"
+                    name="Name"
+                    label="Имя"
+                    required
+                    >
+                    </v-text-field>
+                   </v-col>
+
+                  <v-col md="5">
+                    <v-text-field
+                    v-model="phone"
+                    :counter="12"
+                    :rules="phoneRules"
+                    name="Phone"
+                    label="Телефон"
+                    required
+                    ></v-text-field>
+                  </v-col>                  
+                </v-row>
+
+                <v-row>
+
+                  <v-col md="5"> 
+                    <v-text-field
+                    v-model="adres"
+                    :rules="adresRules"
+                    name="Adres"
+                    label="Улица, дом/подьезд/квартира/офис"
+                    required
+                    ></v-text-field>
+                  </v-col>
+                  
+                  <v-col md="5">
+                    <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    name="Email"
+                    label="E-mail"
+                    required
+                    ></v-text-field>
+                  </v-col>
+                    
+                </v-row>
+
+                <v-row>
+                  <v-col md="2">
+                    <v-text-field
+                        v-model="deliveryTime"
+                        :rules="deliveryTimeRules"
+                        name="DeliveryTime"
+                        color="deep-purple"
+                        label="Время заказа"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col md="2">
+                    <v-text-field
+                        v-model="personsCount"
+                        name="PersonsCount"
+                        color="deep-purple"
+                        label="Количество персон(приборы)"
+                    ></v-text-field>
+
+                    
+                  </v-col>
+                   
+                </v-row>
+                <v-row>
+
+                  <v-col md="10">
+                  <v-textarea
+                      name="Description"
+                      filled
+                      label="Комментарий к заказу"
+                      auto-grow
+                  ></v-textarea>
+                  </v-col>
+                  
+                </v-row> 
+                   
+                </v-container>
+
+          <v-container fluid>
+            <v-radio-group v-model="radios">
+              <template v-slot:label>
+                <div>Способ оплаты</div>
+              </template>
+              <v-radio @click="paymentCashFalse" value="1">
+                <template v-slot:label>
+                  <div>Расчет на сайте</div>
+                </template>
+              </v-radio>
+              <v-radio @click="paymentCash" value="2">
+                <template v-slot:label>
+                  <div>Расчет по карте курьеру</div>
+                </template>
+              </v-radio>
+              <v-radio @click="paymentCashFalse" value="3">
+                <template v-slot:label>
+                  <div>Расчет наличными курьеру</div>
+                </template>
+              </v-radio>
+            </v-radio-group>
+
+            <v-row v-if="offlineCash == true" >
+                  <v-col md="1">
+                  Потребуется сдача? 
+                    <v-text-field
+                        name="Sdacha"
+                        color="deep-purple"
+                        label="руб."
+                    ></v-text-field>
+                  </v-col>              
+                </v-row>
+          </v-container>
+
+                    
+          <v-container fluid>
+              <v-checkbox v-model="checkbox"  :rules="[v => !!v || 'Для офрмления вы должны ознакомиться с правилами оказания услуг']" required>
+                <template v-slot:label>
+                  <div>
+                    Я прочитал и согласен с условиями 
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <a
+                          target="_blank"
+                          href="http://vuetifyjs.com"
+                          @click.stop
+                          v-on="on"
+                        >
+                          пользовательского соглашения
+                        </a>
+                      </template>
+                      Открыть 
+                    </v-tooltip>
+                    и
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <a
+                          target="_blank"
+                          href="http://vuetifyjs.com"
+                          @click.stop
+                          v-on="on"
+                        >
+                          политики конфиденциальности
+                        </a>
+                      </template>
+                      Открыть 
+                    </v-tooltip>
+                , даю согласие на обработку персональных данных.
+                  </div>
+                </template>
+              </v-checkbox>
+            </v-container>
+   
+ 
+                    
+
+                    <v-btn
+                    block
+                    :disabled="!valid"
+                    color="success"
+                    class="mr-4"
+                    @click="validate"
+                    type="submit"
+                    >
+                    Заказать
+                    </v-btn>
+
+                </v-form >
+              </template>
+>>>>>>> 12c8afc7aa612484944f77c0d3aa54803ccc0e72
             </v-card>   
   </div>
 </template>
@@ -175,7 +367,47 @@ export default {
       }
     },
     data() {
+<<<<<<< HEAD
       return {}
+=======
+      return {
+        offlineCash: false,
+
+        valid: true,
+
+      deliveryTime: '',
+      deliveryTimeRules: [
+        v => !!v || 'Введите желаемое время доставки',
+      ],
+      personsCount: '',
+      adres: '',
+      adresRules: [
+        v => !!v || 'Введите адрес доставки',
+      ],
+      phone: '',
+      phoneRules: [
+        v => !!v || 'Введите ваш номер',
+      ],
+      name: '',
+      nameRules: [
+        v => !!v || 'Введите имя',
+        v => (v && v.length <= 40) || 'Name must be less than 10 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail поле обязательно для заполнения',
+        v => /.+@.+\..+/.test(v) || 'Введите валидный - E-mail адрес',
+      ],
+      select: null,
+      items: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+      ],
+      checkbox: false,
+      }
+>>>>>>> 12c8afc7aa612484944f77c0d3aa54803ccc0e72
     },
     filters: {
     //   formattedPrice,
@@ -216,6 +448,26 @@ export default {
       },
       deleteFromCart(index) {
         this.DELETE_FROM_CART(index)
+<<<<<<< HEAD
+=======
+      },
+      validate () {
+        this.$refs.form.validate()
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+      resetValidation () {
+        this.$refs.form.resetValidation()
+      },
+      paymentCash()
+      {
+        this.offlineCash = true;
+      },
+      paymentCashFalse()
+      {
+        this.offlineCash = false;
+>>>>>>> 12c8afc7aa612484944f77c0d3aa54803ccc0e72
       }
     }
   }
