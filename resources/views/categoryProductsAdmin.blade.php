@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="card"> 
                     <div class="card-header">
-                        <form action="http://www.ochag55.ru:8080/product" method="post" enctype="multipart/form-data">
+                        <form action="https://api.ochag55.ru/product" method="post" enctype="multipart/form-data">
                             @csrf
                             <p>Название товара: 
                             <input name="name" class="form-control">
@@ -139,7 +139,7 @@
         <div class="container">
             <div class="card"> 
                 <div class="card-header">
-                    <form action="http://www.ochag55.ru:8080/product" method="post" enctype="multipart/form-data">
+                    <form action="https://api.ochag55.ru/product" method="post" enctype="multipart/form-data">
                       @csrf  
                       @method('PUT')
                         <p>Название товара: 

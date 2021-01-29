@@ -18,6 +18,7 @@ Auth::routes([
 ]);
 
 Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/mailsend', 'MailSenderController@index');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/admin', 'AdminPages\AdminController@index')->name('admin');

@@ -20,6 +20,8 @@ Route::apiResource('basket', 'BasketController');
 Route::apiResource('order', 'OrderController');
 
 Route::get('journal', 'JournalController@index');
+Route::get('mailsend', 'MailSenderController@index');
+Route::get('orderId', 'OrderController@getId');
 
 
 

@@ -7,7 +7,7 @@
     <li class="nav-item text-nowrap">
 
       @auth
-      <form action="http://www.ochag55.ru:8080/logout" method="post" enctype="multipart/form-data">
+      <form action="http://api.ochag55.ru/logout" method="get" enctype="multipart/form-data">
         <button type="submit" class="btn btn-success">Выйти</button>
       </form>
       
