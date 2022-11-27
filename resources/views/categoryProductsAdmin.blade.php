@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="card"> 
                     <div class="card-header">
-                        <form action="https://api.ochag55.ru/product" method="post" enctype="multipart/form-data">
+                        <form method="POST" action="https://api.ochag55.ru/product"  enctype="multipart/form-data">
                             @csrf
                             <p>Название товара: 
                             <input name="name" class="form-control">
@@ -105,9 +105,38 @@
                   font-size: 15px;
                 }
               </style>
+              Рекомендуемые товары: 
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Название</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                @foreach($dopsResult as $item)
+                  @if($item['productId'] == $row->id)
+                  <tr>
+                    <td>{{$item['name']}}</td>
+                    <th scope="row">
+                      <form method="POST" action="/dopProductDelete" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name = "dopProductHidden" value="{{$item['dopProductId']}}">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Удалить</button>
+                      </form>
+                    </th>  
+                  </tr>
+                  @endif
+                @endforeach 
+                 
+                </tbody>
+              </table>
+              
+              <button id = "{{$row->id}}" name = "modelDopsButton" type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#productDopsModal">Добавить Рекомендуемый товар</button>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                  <button id = "{{$row->id}}" name = "modelButton" type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#productEditModal">Редактировать</button>
+                  <button id = "edit{{$row->id}}" name = "modelButton" type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#productEditModal">Редактировать</button>
                     <form action="/productDelete" method="post">
                       @csrf
                       <input name = "productId" type="hidden" value="{{$row->id}}">
@@ -139,7 +168,7 @@
         <div class="container">
             <div class="card"> 
                 <div class="card-header">
-                    <form action="https://api.ochag55.ru/product" method="post" enctype="multipart/form-data">
+                    <form  method="POST" action="https://api.ochag55.ru/product" enctype="multipart/form-data">
                       @csrf  
                       @method('PUT')
                         <p>Название товара: 
@@ -189,6 +218,55 @@
     </div>
     </div>
     <!-- Modal EDIT END-->
+
+       <!-- Modal DOPS  -->
+   <div class="modal fade" id="productDopsModal" tabindex="-1" role="dialog" aria-labelledby="productDopsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="productDopsModalLabel">Добавить доп. товар в рекомендации</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <!-- Modal BODY  START-->
+    <div class="modal-body">
+        <div class="container">
+            <div class="card"> 
+                <div class="card-header">
+                    <form method="POST" action="/dops" enctype="multipart/form-data">
+                      @csrf  
+                        <p>Выберите категорию: </p>
+                        <select id = "categoryDopsId" name="categoryDopsSelector" multiple size="8">
+                          @foreach($categorys as $row)
+                            <option  value="{{$row->id}}">{{$row->name}}</option>      
+                          @endforeach 
+                        </select>
+                        
+
+                        <p>Выберите товар:  </p>
+                          <select id="productDopsId"  name="productDopsSelector" multiple size="8">
+
+                          </select>
+                         
+                          <input id = "currentProductIdHidden" type="hidden" name="productIdHidden">
+                        <div>
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                        </div>
+                        
+                    </form>
+                </div>                                                    
+            </div>
+        </div>       
+    </div>
+    <!-- Modal BODY  END-->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Modal DOPS END-->
     
     <script>
       const nameEditId        = document.getElementById('name');
@@ -197,14 +275,24 @@
       const editProductId     = document.getElementById('editProductId');
       const descriptionEditId = document.getElementById('descriptionEdit');
       const imgEdit           = document.getElementById('imgEditHidden');
+      const dopsId            = document.getElementById('productDopsModal');
+      const dopsCategoryId    = document.getElementById('categoryDopsId');
+      const dopsProductId     = document.getElementById('productDopsId');
+      const currentProductId  = document.getElementById('currentProductIdHidden');
 
-      const modelButton  = document.getElementsByName('modelButton');
-      const productId    = document.getElementsByName('hiddenProductId');
-      const pName        = document.getElementsByName('pName');
-      const pPrice       = document.getElementsByName('pPrice');
-      const pWeight      = document.getElementsByName('pWeight');
-      const pDescription = document.getElementsByName('pDescription');
-      const pImage       = document.getElementsByName('imageHidden');
+      const modelButton     = document.getElementsByName('modelButton');
+      const modelDopsButton = document.getElementsByName('modelDopsButton');
+      const productId       = document.getElementsByName('hiddenProductId');
+      const pName           = document.getElementsByName('pName');
+      const pPrice          = document.getElementsByName('pPrice');
+      const pWeight         = document.getElementsByName('pWeight');
+      const pDescription    = document.getElementsByName('pDescription');
+      const pImage          = document.getElementsByName('imageHidden');
+      //const dopsSelect      = document.getElementsByName('productDopsId');
+
+
+      var productData    = new Map();
+ 
       
       var cartData;
       var arrCartData = [];
@@ -229,11 +317,14 @@
      
       modelButton.forEach((element) => {
         var modelButtonId = document.getElementById(element.id);
-        //console.log(modelButtonId.id);
+       // console.log(modelButtonId.id);
         modelButtonId.addEventListener('click', (event) => {
+          console.log('in edit event');
           for(let i = 0; i < arrCartData.length; i++)
           {
-            if(modelButtonId.id == arrCartData[i].productId)
+            // console.log(arrCartData);
+            // console.log(modelButtonId.id.replace(/[a-zа-яё]/gi, ''));
+            if(modelButtonId.id.replace(/[a-zа-яё]/gi, '') == arrCartData[i].productId)
             {
               nameEditId.value        = arrCartData[i].pName;
               priceEditId.value       = arrCartData[i].pPrice;
@@ -244,6 +335,50 @@
             }
           }
         });
+      });
+
+      function createOption(element){
+        return document.createElement(element);
+      }
+
+      modelDopsButton.forEach((element) => {
+        var modelDopsButtonId = document.getElementById(element.id);
+        
+        //console.log(modelDopsButtonId.id);
+     
+       
+          modelDopsButtonId.addEventListener('click', (event) => {
+
+            currentProductId.value = modelDopsButtonId.id;
+            //console.log(modelDopsButtonId);
+
+                 dopsCategoryId.addEventListener('click', (event) => {
+                    console.log(dopsCategoryId.value);
+                    dopsProductId.innerHTML  = '';
+                    const productsUrl  = `https://api.ochag55.ru/admin/products/${dopsCategoryId.value}`
+                    fetch(productsUrl, {
+                          method: "get",
+                          headers: {
+                              "Content-Type": "application/json",
+                              "X-Requested-With": "XMLHttpRequest"
+                          }
+                      })
+                      .then((response) => response.json())
+                      .then(data => {
+                            console.log(data);
+                            for(value in data)
+                            {
+                              let option       = createOption('option');
+
+                              option.value       = data[value].id;
+                              option.text        = data[value].name;
+                              dopsProductId.appendChild(option);
+                            }
+                          console.log(productData);
+                });
+              });
+          });
+
       });
     </script>
         

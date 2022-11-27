@@ -69,10 +69,12 @@ class ProductController extends Controller
             
             $pathToDb   = "uploads/$imageName";
 
-
             Storage::disk('public')->delete("$oldImage");
+
             $this->saveAndResize($image);
+            
             $article = Product::findOrFail($productId);
+
             $article->update([
                 'categoriId'  => $categoryId,
                 'name'        => "$name",
@@ -81,9 +83,7 @@ class ProductController extends Controller
                 'description' => "$description",
                 'image'       => "$pathToDb",
             ]);   
-        }
-        else
-            {
+        }else{
                 $article = Product::findOrFail($productId);
                 $article->update([
                     'categoriId'  => $categoryId,
@@ -95,7 +95,8 @@ class ProductController extends Controller
             }
 
         
-            return redirect()->to("/admin/category/{$categoryId}");
+        
+        return redirect()->to("/admin/category/{$categoryId}");
     }
 
     public function delete(Request $requestForm)

@@ -32,5 +32,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/product', 'ProductController@store');
     Route::post('/productDelete', 'ProductController@delete');
     Route::put('/product', 'ProductController@update');
+
+    Route::post('/dops', 'DopsCategorysController@store');
+    Route::post('/dopProductDelete', 'DopsCategorysController@delete');
 });
 

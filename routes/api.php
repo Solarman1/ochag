@@ -22,6 +22,8 @@ Route::apiResource('order', 'OrderController');
 Route::get('journal', 'JournalController@index');
 Route::get('mailsend', 'MailSenderController@index');
 Route::get('orderId', 'OrderController@getId');
+Route::get('dops', 'DopsCategorysController@getDops');
+
 
 
 

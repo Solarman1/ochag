@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
         //$pathToSave = public_path('storage/categoryImages/'.$imageName);
         //dd($pathToSave);
-        $pathToSave = public_path('storage\categoryImages\\'.$imageName);
+        $pathToSave = public_path('storage/categoryImages/'.$imageName);
         
         $img->save($pathToSave);
     }

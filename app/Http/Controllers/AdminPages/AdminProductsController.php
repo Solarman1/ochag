@@ -11,9 +11,11 @@ class AdminProductsController extends Controller
     //
     public function getProducts($categoryId)
     {
-        // $categorys = \App\Models\Product::all()
-        //                                 ->where('id', $categoryId);
-        // // return ['login' => $admin];
-        // return view('main', compact('categorys'));
+        $products = \App\Models\Product::all()
+                                        ->where('categoriId', $categoryId);
+
+        $res = json_encode($products);
+        // return ['login' => $admin];
+        return $res;
     }
 }
